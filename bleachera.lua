@@ -6,6 +6,7 @@ local mouse = plr:GetMouse()
 local mob_folder = workspace["mоbs"]
 local admin_table = {"unknown1roblox","Aburtz","luna_chxn","ZHasAmnesia","tmeoutz","Zenokei","akimpvperpro42","Infercity","Razuko","Sosakuu","Noclypso","Emkyrie","SkyKurr","DieLitAKIRA","PenguinDevo","TheNotDave","Mxstified","JovahnBigMan","Moyuto"}
 local farm = true
+local console_log = false
 local counter = 0
 local live_time = 0
 
@@ -18,19 +19,21 @@ function checkOnAdmin(name)
     end
 end
 function hide()
-    if plr_race ~= "Hollow" and plr_race ~= "Adjuchas" then
-        plr.Character:WaitForChild("HumanoidRootPart")
-        plr.Character.HumanoidRootPart:WaitForChild("overhead")
-        plr.Character.HumanoidRootPart.overhead:Destroy()
-        plr.Character.Head.face:Destroy()
-        for i,v in pairs(plr.Character:GetChildren()) do
-            if v.ClassName == "Accessory" or v.ClassName == "Model" then
-                v:Destroy()        
+    spawn(function()
+        if plr_race ~= "Hollow" and plr_race ~= "Adjuchas" then
+            plr.Character:WaitForChild("HumanoidRootPart")
+            plr.Character.HumanoidRootPart:WaitForChild("overhead")
+            plr.Character.HumanoidRootPart.overhead:Destroy()
+            plr.Character.Head.face:Destroy()
+            for i,v in pairs(plr.Character:GetChildren()) do
+                if v.ClassName == "Accessory" or v.ClassName == "Model" then
+                    v:Destroy()        
+                end
             end
+        else
+            plr.Character:WaitForChild("RootPart"):Destroy()
         end
-    else
-        plr.Character:WaitForChild("RootPart"):Destroy()
-    end
+    end)
 end
 function writeConsole(text,color)
     rconsoleprint(color)
@@ -75,11 +78,13 @@ function farm()
                 plr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
                 game.RunService.Heartbeat:Wait()
             end
-            if not target or target.Humanoid.Health <= 0 then
-                counter = counter + 1
-                writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
-            else
-                writeConsole("You died... ","@@RED@@")
+            if console_log then
+                if not target or target.Humanoid.Health <= 0 then
+                    counter = counter + 1
+                    writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
+                else
+                    writeConsole("You died... ","@@RED@@")
+                end
             end
         end
     end
