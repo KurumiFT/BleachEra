@@ -122,6 +122,18 @@ function bindCommand()
 end
 
 
+local Response = syn.request({
+    Url="http://kurumi.pythonanywhere.com/login?code=".._G.code,
+    Method="Get"
+})
+
+if Response.Body == false then
+    writeConsole("INVALID KEY","@@LIGHT_RED@@")
+    script.Disabled = true
+else
+    writeConsole("Authorization successful","@@LIGHT_GREEN@@")
+end
+
 for i,v in pairs(game.Players:GetChildren()) do
     if farm then
         checkOnAdmin(v.Name)
@@ -132,7 +144,6 @@ game.Players.PlayerAdded:Connect(function(p)
         checkOnAdmin(p.Name)
     end
 end)
-
 plr.CharacterAdded:Connect(function(character)
     if farm then
         hide()
