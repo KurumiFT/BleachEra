@@ -9,6 +9,7 @@ local farm = true
 local console_log = true
 local counter = 0
 local live_time = 0
+rconsoleclear()
 
 function checkOnAdmin(name)
     for i,v in pairs(admin_table) do
@@ -153,7 +154,6 @@ plr.CharacterAdded:Connect(function(character)
 end)
 
 --begin info
-rconsoleclear()
 writeConsole("*Script maded by Kurumi#1234.*","@@WHITE@@")
 wait(.1)
 writeConsole("Functions init.","@@LIGHT_GREEN@@")
