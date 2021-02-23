@@ -69,11 +69,16 @@ function farm()
             -- toggle tp on 
             while target.Humanoid.Health > 0 do
                 if not plr.Character then break end
+                if plr.Character:FindFirstChild("HumanoidRootPart") == nil then break end
                 plr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
                 game.RunService.Heartbeat:Wait()
             end
-            counter = counter + 1
-            writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
+            if not target or target.Humanoid.Health <= 0 then
+                counter = counter + 1
+                writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
+            else
+                writeConsole("You died... ","@@RED@@")
+            end
         end
     end
 end
