@@ -1,5 +1,3 @@
-_G.code = "pprw5lg32rdsrsbG"
-
 local plr = game.Players.LocalPlayer
 local plr_data = plr.data
 local plr_stats = plr_data.stats
