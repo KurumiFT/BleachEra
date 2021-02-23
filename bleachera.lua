@@ -6,7 +6,7 @@ local mouse = plr:GetMouse()
 local mob_folder = workspace["mоbs"]
 local admin_table = {"unknown1roblox","Aburtz","luna_chxn","ZHasAmnesia","tmeoutz","Zenokei","akimpvperpro42","Infercity","Razuko","Sosakuu","Noclypso","Emkyrie","SkyKurr","DieLitAKIRA","PenguinDevo","TheNotDave","Mxstified","JovahnBigMan","Moyuto"}
 local farm = true
-local console_log = false
+local console_log = true
 local counter = 0
 local live_time = 0
 
@@ -56,6 +56,8 @@ function farm()
     while farm do
         game.RunService.Heartbeat:Wait()
         if plr.Character then
+            local picked = false
+            
             writeConsole("Finding hollow...","@@WHITE@@")
             repeat
                 local hollows = {}
@@ -71,6 +73,7 @@ function farm()
                 end
                 wait(1)
             until target
+            picked = true
             -- toggle tp on 
             while target.Humanoid.Health > 0 do
                 if not plr.Character then break end
@@ -79,11 +82,11 @@ function farm()
                 game.RunService.Heartbeat:Wait()
             end
             if console_log then
-                if not target or target.Humanoid.Health <= 0 then
-                    counter = counter + 1
-                    writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
+                if picked and (not target or target.Humanoid.Health <= 0) then
+                        counter = counter + 1
+                        writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
                 else
-                    writeConsole("You died... ","@@RED@@")
+                        writeConsole("You died... ","@@RED@@")
                 end
             end
         end
