@@ -28,6 +28,8 @@ function hide()
                 v:Destroy()        
             end
         end
+    else
+        plr.Character:WaitForChild("RootPart"):Destroy()
     end
 end
 function writeConsole(text,color)
