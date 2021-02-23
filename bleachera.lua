@@ -1,3 +1,5 @@
+_G.code = "pprw5lg32rdsrsbG"
+
 local plr = game.Players.LocalPlayer
 local plr_data = plr.data
 local plr_stats = plr_data.stats
@@ -5,11 +7,10 @@ local plr_race = plr_stats.race.value
 local mouse = plr:GetMouse()
 local mob_folder = workspace["mоbs"]
 local admin_table = {"unknown1roblox","Aburtz","luna_chxn","ZHasAmnesia","tmeoutz","Zenokei","akimpvperpro42","Infercity","Razuko","Sosakuu","Noclypso","Emkyrie","SkyKurr","DieLitAKIRA","PenguinDevo","TheNotDave","Mxstified","JovahnBigMan","Moyuto"}
-local farm = true
+local farm = false
 local console_log = true
 local counter = 0
 local live_time = 0
-rconsoleclear()
 
 function checkOnAdmin(name)
     for i,v in pairs(admin_table) do
@@ -59,7 +60,6 @@ function farming()
         if plr.Character then
             local picked = false
             
-            writeConsole("Finding hollow...","@@WHITE@@")
             repeat
                 local hollows = {}
                 for i,v in pairs(mob_folder:GetChildren()) do
@@ -119,6 +119,31 @@ function bindCommand()
                 end
             end
         end
+        if command == "/players" then
+            writeConsole("Player list:","@@DARK_GRAY@@")
+            for i,v in pairs(game.Players:GetChildren()) do
+                if v:FindFirstChild("data") then
+                    if v.data:FindFirstChild("stats") then
+                        writeConsole(v.Name.." - "..v.data.stats.race.value,"@@LIGHT_GRAY@@")                    
+                    end
+                end
+            end
+            writeConsole("###","@@DARK_GRAY@@")
+        end
+        
+        if #string.split(command," ") > 1 then
+            if string.split(command," ")[1] == "/teleport" then
+                if not game.Players:FindFirstChild(string.split(command," ")[2]) then
+                    writeConsole("Player not found","@@RED@@")
+                else
+                    if game.Players[string.split(command," ")[2]].Character then
+                        if game.Players[string.split(command," ")[2]].Character:FindFirstChild("HumanoidRootPart") then plr.Character.HumanoidRootPart.CFrame = game.Players[string.split(command," ")[2]].Character.HumanoidRootPart.CFrame * CFrame.new(0,50,0) 
+                            writeConsole("You teleported to "..string.split(command," ")[2],"@@LIGHT_GREEN@@")    
+                        end
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -154,6 +179,7 @@ plr.CharacterAdded:Connect(function(character)
 end)
 
 --begin info
+rconsoleclear()
 writeConsole("*Script maded by Kurumi#1234.*","@@WHITE@@")
 wait(.1)
 writeConsole("Functions init.","@@LIGHT_GREEN@@")
@@ -170,5 +196,7 @@ writeConsole("Autofarm ON!.","@@LIGHT_RED@@")
 spawn(farming)
 rconsoleinfo("/logs - Enable/Disable logs")
 rconsoleinfo("/farm - Enable/Disable Autofarm")
+rconsoleinfo("/players - Player list with races")
+rconsoleinfo("/teleport [Nickname] - Teleport to Player (Please full Nickname)")
 
 spawn(bindCommand)
