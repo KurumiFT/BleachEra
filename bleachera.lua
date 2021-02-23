@@ -40,7 +40,7 @@ function writeConsole(text,color)
     rconsoleprint(text)
     rconsoleprint("\n")
 end
-function farm()
+function farming()
     local target = nil
     --autoattack
     spawn(function()
@@ -76,6 +76,7 @@ function farm()
             picked = true
             -- toggle tp on 
             while target.Humanoid.Health > 0 do
+                if not farm then break end
                 if not plr.Character then break end
                 if plr.Character:FindFirstChild("HumanoidRootPart") == nil then break end
                 if not target then break end
@@ -95,19 +96,49 @@ function farm()
         end
     end
 end
+function bindCommand()
+    while true do
+        local command = rconsoleinput()
+        if command == "/logs" then
+            logs = not logs
+            writeConsole("Done.","@@GREEN@@")
+        end
+        if command == "/farm" then
+            farm = not farm
+            if not farm then
+                writeConsole("Autofarm OFF!","@@LIGHT_RED@@")
+                if game.Players.LocalPlayer.Character then
+                    game.Players.LocalPlayer.Character:BreakJoints()                
+                end
+            else
+                writeConsole("Autofarm ON!","@@LIGHT_RED@@")
+                spawn(farming)
+                if game.Players.LocalPlayer.Character then
+                    game.Players.LocalPlayer.Character:BreakJoints()                
+                end
+            end
+        end
+    end
+end
 
 
 for i,v in pairs(game.Players:GetChildren()) do
-    checkOnAdmin(v.Name)
+    if farm then
+        checkOnAdmin(v.Name)
+    end
 end
 game.Players.PlayerAdded:Connect(function(p)
-    checkOnAdmin(p.Name)
+    if farm then
+        checkOnAdmin(p.Name)
+    end
 end)
 
 plr.CharacterAdded:Connect(function(character)
-    hide()
+    if farm then
+        hide()
+        writeConsole("Character was hiden.","@@GREEN@@")
+    end
     live_time = tick()
-    writeConsole("Character was hiden.","@@GREEN@@")
 end)
 
 --begin info
@@ -125,4 +156,8 @@ live_time = tick()
 writeConsole("Character was hiden.","@@GREEN@@")
 wait(.1)
 writeConsole("Autofarm ON!.","@@LIGHT_RED@@")
-spawn(farm)
+spawn(farming)
+rconsoleinfo("/logs - Enable/Disable logs")
+rconsoleinfo("/farm - Enable/Disable Autofarm")
+
+spawn(bindCommand)
