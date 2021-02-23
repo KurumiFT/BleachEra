@@ -78,7 +78,10 @@ function farm()
             while target.Humanoid.Health > 0 do
                 if not plr.Character then break end
                 if plr.Character:FindFirstChild("HumanoidRootPart") == nil then break end
+                if not target then break end
+                if not target:FindFirstChild("HumanoidRootPart") then break end
                 plr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(plr.Character.HumanoidRootPart.Position,target.HumanoidRootPart.Position)
                 game.RunService.Heartbeat:Wait()
             end
             if console_log then
