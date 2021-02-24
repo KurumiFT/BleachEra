@@ -1,4 +1,9 @@
+local VirtualUser = game:GetService("VirtualUser")
 local plr = game.Players.LocalPlayer
+plr.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
 local plr_data = plr.data
 local plr_stats = plr_data.stats
 local plr_race = plr_stats.race.value
