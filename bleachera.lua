@@ -43,7 +43,13 @@ function hide()
                 end
             end)
         else
-            plr.Character:WaitForChild("RootPart"):Destroy()
+            while plr.Character do
+                if plr.Character:FindFirstChild("RootPart") then
+                    plr.Character.RootPart:Destroy()
+                    break
+                    game.RunService.Heartbeat:Wait()
+                end
+            end
         end
     end)
 end
