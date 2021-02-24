@@ -133,6 +133,8 @@ function bindCommand()
             if workspace:FindFirstChild("Vasto Boss") then
                 workspace["Vasto Boss"].Humanoid.Health = 0
                 writeConsole("Vasto Boss HP setted to 0","@@GREEN@@")
+            else
+                writeConsole("I can't find Vasto Boss :<","@@RED@@")
             end
         end
         
