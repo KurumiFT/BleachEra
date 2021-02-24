@@ -27,18 +27,20 @@ function hide()
     spawn(function()
         if plr_race ~= "Hollow" and plr_race ~= "Adjuchas" then
             plr.Character:WaitForChild("HumanoidRootPart")
-            plr.Character.HumanoidRootPart:WaitForChild("overhead")
-            plr.Character.HumanoidRootPart.overhead:Destroy()
+            plr.Character.HumanoidRootPart:WaitForChild("overhead"):Destroy()
+            plr.Character:WaitForChild("Head"):WaitForChild("face"):Destroy()
             plr.Character.Head.face:Destroy()
             
             for i,v in pairs(plr.Character:GetChildren()) do
                 if v.ClassName == "Accessory" or v.ClassName == "Model" or v.ClassName == "Shirt" or v.ClassName == "Pants" then
+                    game.RunService.Heartbeat:Wait()
                     v:Destroy()                    
                 end        
             end
             
             plr.Character.ChildAdded:Connect(function(v)
                 if v.ClassName == "Accessory" or v.ClassName == "Model" or v.ClassName == "Shirt" or v.ClassName == "Pants" then
+                    game.RunService.Heartbeat:Wait()    
                     v:Destroy()                    
                 end
             end)
@@ -197,7 +199,10 @@ end)
 plr.CharacterAdded:Connect(function(character)
     if farm then
         hide()
-        writeConsole("Character was hiden.","@@GREEN@@")
+        character:WaitForChild("Humanoid")
+        character.Humanoid.Died:Connect(function()
+            plr.Character:Destroy()
+        end)
     end
     live_time = tick()
 end)
