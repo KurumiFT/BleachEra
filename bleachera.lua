@@ -18,7 +18,11 @@ local live_time = 0
 function checkOnAdmin(name)
     for i,v in pairs(admin_table) do
         if v == name then
-            plr:Kick("Admin!")   
+            farm = false
+            writeConsole("Autofarm OFF!","@@LIGHT_RED@@")
+            if game.Players.LocalPlayer.Character then
+               game.Players.LocalPlayer.Character:BreakJoints()                
+            end
             break
         end
     end
