@@ -198,6 +198,6 @@ rconsoleinfo("/logs - Enable/Disable logs")
 rconsoleinfo("/farm - Enable/Disable Autofarm")
 rconsoleinfo("/players - Player list with races")
 rconsoleinfo("/teleport [Nickname] - Teleport to Player (Please full Nickname)")
-rnonsoleinfo("/bkill - Set resurrection boss HP to 0 (Soon Bankai Boss)")
+rconsoleinfo("/bkill - Set resurrection boss HP to 0")
 
 spawn(bindCommand)
