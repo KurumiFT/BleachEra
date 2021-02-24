@@ -32,13 +32,13 @@ function hide()
             plr.Character.Head.face:Destroy()
             
             for i,v in pairs(plr.Character:GetChildren()) do
-                if v.ClassName == "Accessory" or v.ClassName == "Model" then
+                if v.ClassName == "Accessory" or v.ClassName == "Model" or v.ClassName == "Shirt" or v.ClassName == "Pants" then
                     v:Destroy()                    
                 end        
             end
             
             plr.Character.ChildAdded:Connect(function(v)
-                if v.ClassName == "Accessory" or v.ClassName == "Model" then
+                if v.ClassName == "Accessory" or v.ClassName == "Model" or v.ClassName == "Shirt" or v.ClassName == "Pants" then
                     v:Destroy()                    
                 end
             end)
