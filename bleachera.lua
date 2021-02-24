@@ -64,6 +64,12 @@ function farming()
         end
     end)
     
+    for i,v in pairs(game.Players:GetChildren()) do
+       if farm then
+         checkOnAdmin(v.Name)
+       end
+    end
+
     while farm do
         game.RunService.Heartbeat:Wait()
         if plr.Character then
@@ -176,11 +182,6 @@ else
     writeConsole("Authorization successful","@@LIGHT_GREEN@@")
 end
 
-for i,v in pairs(game.Players:GetChildren()) do
-    if farm then
-        checkOnAdmin(v.Name)
-    end
-end
 game.Players.PlayerAdded:Connect(function(p)
     if farm then
         checkOnAdmin(p.Name)
