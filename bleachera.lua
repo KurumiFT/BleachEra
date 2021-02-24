@@ -47,9 +47,8 @@ function hide()
                 if plr.Character:FindFirstChild("RootPart") then
                         plr.Character.RootPart:Destroy()
                         break
-                    end
-                    game.RunService.Heartbeat:Wait()
                 end
+                game.RunService.Heartbeat:Wait()
             end
         end
     end)
