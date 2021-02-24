@@ -45,10 +45,11 @@ function hide()
                 end
             end)
         else
-            while plr.Character do
-                if plr.Character:FindFirstChild("RootPart") then
-                        plr.Character.RootPart:Destroy()
-                        break
+            local ch = plr.Character or plr.CharacterAdded:Wait()
+            while ch do
+                if ch:FindFirstChild("RootPart") then
+                    ch.RootPart:Destroy()
+                    break
                 end
                 game.RunService.Heartbeat:Wait()
             end
