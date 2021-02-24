@@ -26,6 +26,12 @@ function hide()
             plr.Character.HumanoidRootPart.overhead:Destroy()
             plr.Character.Head.face:Destroy()
             
+            for i,v in pairs(plr.Character:GetChildren()) do
+                if v.ClassName == "Accessory" or v.ClassName == "Model" then
+                    v:Destroy()                    
+                end        
+            end
+            
             plr.Character.ChildAdded:Connect(function(v)
                 if v.ClassName == "Accessory" or v.ClassName == "Model" then
                     v:Destroy()                    
@@ -133,8 +139,6 @@ function bindCommand()
             if workspace:FindFirstChild("Vasto Boss") then
                 workspace["Vasto Boss"].Humanoid.Health = 0
                 writeConsole("Vasto Boss HP setted to 0","@@GREEN@@")
-            else
-                writeConsole("I can't find Vasto Boss :<","@@RED@@")
             end
         end
         
@@ -200,6 +204,6 @@ rconsoleinfo("/logs - Enable/Disable logs")
 rconsoleinfo("/farm - Enable/Disable Autofarm")
 rconsoleinfo("/players - Player list with races")
 rconsoleinfo("/teleport [Nickname] - Teleport to Player (Please full Nickname)")
-rconsoleinfo("/bkill - Kill Vasto Boss (Bankai boss soon)")
+rconsoleinfo("/bkill - Set resurrection boss HP to 0")
 
 spawn(bindCommand)
