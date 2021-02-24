@@ -202,8 +202,9 @@ plr.CharacterAdded:Connect(function(character)
     if farm then
         hide()
         character:WaitForChild("Humanoid")
-        character.Humanoid.Died:Connect(function()
+        local event = character.Humanoid.Died:Connect(function()
             plr.Character:Destroy()
+            event:Disconnect()
         end)
     end
     live_time = tick()
