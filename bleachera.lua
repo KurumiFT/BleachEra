@@ -18,11 +18,7 @@ local live_time = 0
 function checkOnAdmin(name)
     for i,v in pairs(admin_table) do
         if v == name then
-            farm = false
-            writeConsole("Autofarm OFF!","@@LIGHT_RED@@")
-            if game.Players.LocalPlayer.Character then
-               game.Players.LocalPlayer.Character:BreakJoints()                
-            end
+            plr:Kick("Admin!")   
             break
         end
     end
@@ -56,6 +52,7 @@ function writeConsole(text,color)
     rconsoleprint(text)
     rconsoleprint("\n")
 end
+
 function farming()
     --autoattack
     spawn(function()
@@ -68,12 +65,6 @@ function farming()
         end
     end)
     
-    for i,v in pairs(game.Players:GetChildren()) do
-       if farm then
-         checkOnAdmin(v.Name)
-       end
-    end
-
     while farm do
         game.RunService.Heartbeat:Wait()
         if plr.Character then
@@ -95,22 +86,23 @@ function farming()
             until target
             picked = true
             -- toggle tp on 
+            plr.Character:Destroy()
+            
             while target.Humanoid.Health > 0 do
                 if not farm then break end
-                if not plr.Character then break end
-                if plr.Character:FindFirstChild("HumanoidRootPart") == nil then break end
                 if not target then break end
                 if not target:FindFirstChild("HumanoidRootPart") then break end
-                plr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
-                plr.Character.HumanoidRootPart.CFrame = CFrame.new(plr.Character.HumanoidRootPart.Position,target.HumanoidRootPart.Position)
+                if plr.Character then
+                    if plr.Character:FindFirstChild("Humanoid") and plr.Character:FindFirstChild("HumanoidRootPart") then
+                        plr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,7) 
+                    end
+                end
                 game.RunService.Heartbeat:Wait()
             end
             if console_log then
                 if picked and (not target or target.Humanoid.Health <= 0) then
                         counter = counter + 1
                         writeConsole("Script was killed "..counter.." hollows. You are live: "..tick()-live_time,"@@CYAN@@")
-                else
-                        writeConsole("You died... ","@@RED@@")
                 end
             end
         end
@@ -186,6 +178,11 @@ else
     writeConsole("Authorization successful","@@LIGHT_GREEN@@")
 end
 
+for i,v in pairs(game.Players:GetChildren()) do
+    if farm then
+        checkOnAdmin(v.Name)
+    end
+end
 game.Players.PlayerAdded:Connect(function(p)
     if farm then
         checkOnAdmin(p.Name)
