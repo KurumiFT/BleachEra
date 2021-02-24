@@ -25,11 +25,12 @@ function hide()
             plr.Character.HumanoidRootPart:WaitForChild("overhead")
             plr.Character.HumanoidRootPart.overhead:Destroy()
             plr.Character.Head.face:Destroy()
-            for i,v in pairs(plr.Character:GetChildren()) do
+            
+            plr.Character.ChildAdded:Connect(function(v)
                 if v.ClassName == "Accessory" or v.ClassName == "Model" then
-                    v:Destroy()        
+                    v:Destroy()                    
                 end
-            end
+            end)
         else
             plr.Character:WaitForChild("RootPart"):Destroy()
         end
