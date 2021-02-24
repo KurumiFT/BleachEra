@@ -41,7 +41,6 @@ function writeConsole(text,color)
     rconsoleprint("\n")
 end
 function farming()
-    local target = nil
     --autoattack
     spawn(function()
         while farm do
@@ -57,7 +56,7 @@ function farming()
         game.RunService.Heartbeat:Wait()
         if plr.Character then
             local picked = false
-            
+            local target = nil
             repeat
                 local hollows = {}
                 for i,v in pairs(mob_folder:GetChildren()) do
