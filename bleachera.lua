@@ -129,6 +129,13 @@ function bindCommand()
             writeConsole("###","@@DARK_GRAY@@")
         end
         
+        if command == "/bkill" then
+            if workspace:FindFirstChild("Vasto Boss") then
+                workspace["Vasto Boss"].Humanoid.Health = 0
+                writeConsole("Vasto Boss HP setted to 0","@@GREEN@@")
+            end
+        end
+        
         if #string.split(command," ") > 1 then
             if string.split(command," ")[1] == "/teleport" then
                 if not game.Players:FindFirstChild(string.split(command," ")[2]) then
@@ -191,5 +198,6 @@ rconsoleinfo("/logs - Enable/Disable logs")
 rconsoleinfo("/farm - Enable/Disable Autofarm")
 rconsoleinfo("/players - Player list with races")
 rconsoleinfo("/teleport [Nickname] - Teleport to Player (Please full Nickname)")
+rnonsoleinfo("/bkill - Set resurrection boss HP to 0 (Soon Bankai Boss)")
 
 spawn(bindCommand)
