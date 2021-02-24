@@ -29,7 +29,6 @@ function hide()
             plr.Character:WaitForChild("HumanoidRootPart")
             plr.Character.HumanoidRootPart:WaitForChild("overhead"):Destroy()
             plr.Character:WaitForChild("Head"):WaitForChild("face"):Destroy()
-            plr.Character.Head.face:Destroy()
             
             for i,v in pairs(plr.Character:GetChildren()) do
                 if v.ClassName == "Accessory" or v.ClassName == "Model" or v.ClassName == "Shirt" or v.ClassName == "Pants" then
